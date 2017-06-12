@@ -1,0 +1,15 @@
+{
+  "name": "database-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node app.js"
+  },
+  "author": "sophie mann",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

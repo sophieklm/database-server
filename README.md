@@ -7,6 +7,7 @@ Node.js and Express App to run a server that accepts and returns a key value pai
 $ git clone https://github.com/sophieklm/database-server.git
 $ cd database-server
 $ npm install
+$ npm test
 $ npm start
 ```
 Store and retrieve key value pairs as follows:

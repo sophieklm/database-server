@@ -1,10 +1,7 @@
 var chai = require('chai');
-var chaiHttp = require('chai-http');
 var server = require('../server/app');
 var request = require("request");
 var expect = chai.expect;
-
-chai.use(chaiHttp);
 
 describe('status and content', function() {
   it('succeeds', function(done) {

@@ -1,53 +1,56 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server/app');
+var request = require("request");
 var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Status and content', function() {
+describe('status and content', function() {
   it('succeeds', function(done) {
-    chai.request(server)
-    .get('/')
-    .end(function(err, res){
-      expect(res).to.have.status(200);
+    var url = "http://localhost:4000/";
+    request(url, function(error, res, body) {
+      expect(res.statusCode).to.equal(200);
       done();
     });
   });
   it('has content', function(done) {
-    chai.request(server)
-    .get('/')
-    .end(function(err, res){
-      expect(res.text).to.equal('Hello World!');
+    var url = "http://localhost:4000/";
+    request(url, function(error, res, body) {
+      expect(body).to.equal("Hello World!");
       done();
     });
   });
+});
 
-  describe('app', function() {
-    describe('/set', function() {
-      it('sets a key value pair', function(done) {
-        chai.request(server)
-        .get('/set?name=sophie')
-        .end(function(err, res){
-          expect(res).to.have.status(200);
-          expect(res.text).to.equal('sophie');
-          done();
-        });
+describe('app', function() {
+  describe('/set', function() {
+    var url = "http://localhost:4000/set?name=sophie";
+    it("returns status 200", function(done) {
+      request(url, function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        done();
       });
-    });    
-    describe('/get', function() {
-      it('gets a key value pair', function(done) {
-        chai.request(server)
-        .get('/set?name=sophie')
-        .then(function(){
-          chai.request(server)
-          .get('/get?key=name')
-          .end(function(err, res) {
-            expect(res).to.have.status(200);
-            expect(res.text).to.equal('sophie');
-            done();
-          });
-        });
+    });
+    it("sets the value", function(done) {
+      request(url, function(error, res, body) {
+        expect(body).to.equal("sophie");
+        done();
+      });
+    });
+  });
+  describe('/get', function() {
+    var url = "http://localhost:4000/get?key=name";
+    it("returns status 200", function(done) {
+      request(url, function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+    it("returns the value", function(done) {
+      request(url, function(error, res, body) {
+        expect(body).to.equal("sophie");
+        done();
       });
     });
   });

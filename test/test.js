@@ -22,4 +22,19 @@ describe('Status and content', function() {
       done();
     });
   });
+
+  describe('app', function() {
+    describe('/set', function() {
+      it('sets a key value pair', function(done) {
+        chai.request(server)
+        .get('/set?name=sophie')
+        .end(function(err, res){
+          expect(res).to.have.status(200);
+          expect(res.text).to.equal('sophie');
+          done();
+        });
+      });
+    });
+
+  });
 });

@@ -15,6 +15,11 @@ app.get('/set', function(req, res) {
   res.status(200).end();
 });
 
+app.get('/get', function(req, res){
+  var query = req.query;
+  res.send(database[query.key]);
+});
+
 app.listen(4000, function() {
   console.log('App listening on port 4000');
 });

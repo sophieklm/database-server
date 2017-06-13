@@ -34,7 +34,21 @@ describe('Status and content', function() {
           done();
         });
       });
+    });    
+    describe('/get', function() {
+      it('gets a key value pair', function(done) {
+        chai.request(server)
+        .get('/set?name=sophie')
+        .then(function(){
+          chai.request(server)
+          .get('/get?key=name')
+          .end(function(err, res) {
+            expect(res).to.have.status(200);
+            expect(res.text).to.equal('sophie');
+            done();
+          });
+        });
+      });
     });
-
   });
 });
